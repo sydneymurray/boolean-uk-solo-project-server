@@ -27,13 +27,12 @@ async function createAccount(req, res) {
 async function getStatement(req, res){
   //let accountID = Number(req.params.id)
   let accountID = Number(req.headers.accountid)
-  console.error(accountID)
 
   let dbResponse = await prisma.accounts.findUnique({
     where: {accountID: accountID}})
 
   if (!dbResponse)
-  res.status(561).json({msg: "Account does not exist"})
+    res.status(561).json({msg: "Account does not exist"})
 
   if (dbResponse.customerID!==req.customer.customerID)
     res.status(561).json({msg: "NOT YOUR ACCOUNT!!!"})
